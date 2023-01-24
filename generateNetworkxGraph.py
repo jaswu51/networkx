@@ -51,7 +51,7 @@ class Edge:
     weight: Union[float, int] = field(default=0)
 
 # feed data into the graph
-dictAvenue={}
+dictAvenue={} # create a dict to save all videos, each video (dict key) is a list (dict value) of frames, each frame is a nx graph
 for i in range(df['video_no'].min(),df['video_no'].max()+1 ):
     dictAvenue['video_'+str(i)]=[]
     for j in range(df[df['video_no']==i]['frame_no'].min(),df[df['video_no']==i]['frame_no'].max()):
@@ -66,10 +66,10 @@ for i in range(df['video_no'].min(),df['video_no'].max()+1 ):
         dictAvenue['video_'+str(i)].append(graph)
 
 #  save graph dict
-with open('dictAvenue.pickle', 'wb') as handle:
+with open('results/dictAvenue.pickle', 'wb') as handle:
     pickle.dump(dictAvenue, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
 #  load graph dict
-# with open('dictAvenue.pickle', 'rb') as handle:
-#     b = pickle.load(handle)
-
+with open('results/dictAvenue.pickle', 'rb') as handle:
+    dictAvenue = pickle.load(handle)
+    print(dictAvenue)
